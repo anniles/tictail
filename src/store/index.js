@@ -17,16 +17,6 @@ export default props => {
   const initialState = {
     contacts: contacts_res,
     contact: contactInitial,
-    // contacts: {
-    //   id: '',            // Unique identifier
-    //   first_name: '',    // First name
-    //   last_name: '',     // Last name
-    //   title: '',         // Role title
-    //   color: '',         // Arbitrary HTML color code without # prefix
-    //   image: '',         // URL to avatar
-    //   location: '',      // Location as timezone https://en.wikipedia.org/wiki/Tz_database
-    //   team: '',          // Function level team
-    // },
   };
 
   store = createStore(

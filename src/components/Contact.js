@@ -1,15 +1,12 @@
 import React from 'react';
 import logo from '../images/tictail_logo_square.png';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { edit } from '../actions';
 
 const Contact = props => {
   const { contact, match } = props;
+
   return (
     <div className="contact__wrapper">
       <div className="contact__image">

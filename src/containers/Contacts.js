@@ -1,16 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import logo from '../images/tictail_logo_square.png';
-
-import { contacts_res } from '../constants';
 import Contact from '../components/Contact';
 import Header from '../components/Header';
 
@@ -50,46 +42,3 @@ Contacts.propTypes = {
 };
 
 export default connect(state => state)(Contacts);
-// export default Contacts;
-
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { Helmet } from 'react-helmet';
-
-// import Categories from 'components/Categories';
-// import TreeView from '../components/TreeView';
-// import CategoriesList from '../components/CategoriesList';
-
-// import '../css/index.styl';
-
-// const App = props => {
-//   const { history, categories } = props;
-
-//   return (
-//     <div className="categories">
-//       <Helmet>
-//         <title>Categories</title>
-//       </Helmet>
-
-//       <div className="clusters-header__select">
-//         <Categories
-//           shouldRenderSelect={false}
-//           onSelect={item => history.push(`/categories/${item.id}`)}
-//           onChange={cid => history.push(`/categories/${cid}`)} />
-//         <CategoriesList
-//           categories={categories} />
-//       </div>
-
-//       {/*<TreeView />*/}
-
-//     </div>
-//   );
-// };
-
-// App.propTypes = {
-//   history: PropTypes.object,
-//   categories: PropTypes.array,
-// };
-
-// export default connect(state => state)(App);

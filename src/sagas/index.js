@@ -1,17 +1,17 @@
 import {
   put,
-  call,
+  // call,
   fork,
   takeLatest,
   select,
 } from 'redux-saga/effects';
 
 import { LOADED, SAVE, SAVED } from '../constants/actions';
-import { getContacts } from '../api/getContacts';
+// import { getContacts } from '../api/getContacts';
 
 function* load () {
- const url = 'http://localhost:3000';
- const res = yield call(getContacts, url);
+ // const url = 'http://localhost:3000';
+ // const res = yield call(getContacts, url);
 
   // fetch(`${url}/contacts`, {
   //     method: 'GET',
@@ -44,14 +44,12 @@ function* load () {
 function* save ({ contact }) {
   const state = yield select();
   const { contacts } = state;
-  console.log(contacts, contact);
 
   const newContact = {};
 
   Object.keys(contacts).map(keys => {
     if (keys === contact.id) {
-      // console.log(keys, contact.id);
-      return;
+      return null;
     } else {
       newContact.id = contact.id;
       newContact.color = contact.color;
@@ -61,13 +59,12 @@ function* save ({ contact }) {
       newContact.title = contact.title;
       newContact.team = contact.team;
       newContact.image = contact.image;
+
+      return newContact;
     }
   })
-  console.log({newContact});
 
   contacts[contact.id] = newContact;
-  console.log({contacts});
-  console.log(contacts[contact.id], 'contacts[contact.id]');
 
   yield put({
     type: SAVED,
