@@ -17,13 +17,16 @@ const Contact = props => {
       <div className="contact__info">
         <div
           className="contact__color"
-          style={{backgroundColor: `#${contact.color}`}} />
-        <p>First Name: {contact.first_name}</p>
-        <p>Last Name: {contact.last_name}</p>
-        <p>Location: {contact.location}</p>
-        <p>Team: {contact.team}</p>
-        <p>Title: {contact.title}</p>
+          style={{backgroundColor: `#${contact.color}`} || '#171b1f'} />
+        <p><span>First Name:</span> {contact.first_name || '--no First Name--'}</p>
+        <p><span>Last Name:</span> {contact.last_name || '--no Last Name--'}</p>
+        <p><span>Location:</span> {contact.location || '--Everywhere..--'}</p>
+        <p><span>Team:</span> {contact.team || '--no Team--'}</p>
+        <p><span>Title:</span> {contact.title || '--no Title--'}</p>
+
+        <button className="contact__edit">Edit</button>
       </div>
+
     </div>
   )
 }

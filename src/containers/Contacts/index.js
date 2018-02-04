@@ -3,44 +3,34 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import logo from '../../images/tictail_logo_square.png';
+import logo_letters from '../../images/tictail_logo_letters.png';
 import { contacts_res } from '../../constants';
 import Contact from '../../components/Contact';
+
 
 const Contacts = props => {
   const { contacts } = props;
 
-  const url = 'http://127.0.0.1:5000';
-
-  fetch(`${url}/contacts`, {
-      mode: 'no-cors',
-      // credentials: 'include',
-      method: 'GET',
-       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-    .then(response => response.json())
-    .then(json => console.log(json, 'ee'))
-    .catch(error => console.log('Authorization failed : ' + error.message));
-
   return (
     <div className="contacts">
-      <header className="contacts-header">
-        <img src={logo} className="contacts-logo" alt="logo" />
-        <h1 className="contacts-title">Welcome to Tictail Admin</h1>
+      <header className="contacts__header">
+        <div className="tictail__row contacts__header-wrapper">
+          <img src={logo_letters} className="contacts__logo" alt="logo Tictail" />
+          <h1 className="contacts__title">Welcome to Tictail Admin</h1>
+        </div>
       </header>
 
-      <div className="contacts__list">
-        {contacts
-          ? Object.keys(contacts).map(contactId =>
-            <Contact
-              key={contacts[contactId].id}
-              contact={contacts[contactId]} />
-          )
-          : null
-        }
+      <div className="tictail__row">
+        <div className="contacts__list">
+          {contacts
+            ? Object.keys(contacts).map(contactId =>
+              <Contact
+                key={contacts[contactId].id}
+                contact={contacts[contactId]} />
+            )
+            : null
+          }
+        </div>
       </div>
     </div>
   );
