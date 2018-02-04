@@ -2,13 +2,13 @@
 
 .contact__wrapper
   display: flex
-  max-width: 300px
+  max-width: 304px
   width: 100%
   text-align: left
   border: 1px solid $tictail__border
   padding: 1rem
   margin: 0.5rem
-  border-radius: 3px;
+  border-radius: 3px
 
 .contact__image
   width: 50px
@@ -34,17 +34,25 @@
   height: 8px
   margin-bottom: 1rem
 
-.contact__edit
-  width: 100%
-  border: 1px solid $tictail__border
+.contact__button
+  border: 1px solid #eeefef
   background-color: transparent
-  padding: 0.5rem
+  padding: 0.5rem 0
   margin-top: 1rem
   cursor: pointer
-  color: $tictail__grey
+  display: flex
+  color: #65676b
   font-weight: 600
   border-radius: 3px
+  width: 100%
   transition: all .2s
+  justify-content: center
+  align-items: center
+  text-decoration: none
+  &--add
+    max-width: 250px
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
   &:hover
     color: $tictail__black
     border-color: $tictail__black

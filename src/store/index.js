@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers';
 import saga from '../sagas';
 import { contacts_res } from '../constants';
+import { contactInitial } from '../constants';
 
 let store;
 
@@ -15,6 +16,7 @@ export default props => {
   const sagaMiddleware = createSagaMiddleware();
   const initialState = {
     contacts: contacts_res,
+    contact: contactInitial,
     // contacts: {
     //   id: '',            // Unique identifier
     //   first_name: '',    // First name

@@ -640,3 +640,25 @@ export const contacts_res = {
     "title": null
   }
 }
+
+export const contactInitial = {
+  id: '',            // Unique identifier
+  color: 'E2C059',         // Arbitrary HTML color code without # prefix
+  first_name: '',    // First name
+  last_name: '',     // Last name
+  location: '',      // Location as timezone https://en.wikipedia.org/wiki/Tz_database
+  team: '',          // Function level team
+  title: '',         // Role title
+  // image: '../images/tictail_logo_square.png',         // URL to avatar
+};
+
+
+export const mapLabel = {
+  first_name: 'First Name:',
+  last_name: 'Last Name:',
+  location: 'Location:',
+  team: 'Team:',
+  title: 'Title:',
+  color: 'Color:',
+  id: 'Id:',
+};

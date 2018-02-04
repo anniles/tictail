@@ -1,30 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Link
+} from 'react-router-dom';
 
-import logo from '../../images/tictail_logo_square.png';
-import logo_letters from '../../images/tictail_logo_letters.png';
-import { contacts_res } from '../../constants';
-import Contact from '../../components/Contact';
+import logo from '../images/tictail_logo_square.png';
 
+import { contacts_res } from '../constants';
+import Contact from '../components/Contact';
+import Header from '../components/Header';
 
 const Contacts = props => {
-  const { contacts } = props;
+  const { contacts, match } = props;
+  const newContactId = Math.random().toString(36).substr(2, 10);
 
   return (
     <div className="contacts">
-      <header className="contacts__header">
-        <div className="tictail__row contacts__header-wrapper">
-          <img src={logo_letters} className="contacts__logo" alt="logo Tictail" />
-          <h1 className="contacts__title">Welcome to Tictail Admin</h1>
-        </div>
-      </header>
+      <Header title="Welcome to Tictail Admin" />
 
       <div className="tictail__row">
+        <Link
+          to={`${match.url}id:${newContactId}`}
+          className="contact__button contact__button--add">
+          Add Contact
+        </Link>
+
         <div className="contacts__list">
           {contacts
             ? Object.keys(contacts).map(contactId =>
               <Contact
+                match={match}
                 key={contacts[contactId].id}
                 contact={contacts[contactId]} />
             )
@@ -38,8 +47,6 @@ const Contacts = props => {
 
 Contacts.propTypes = {
   contacts: PropTypes.object,
-  // categories: PropTypes.array,
-  // categories: PropTypes.array,
 };
 
 export default connect(state => state)(Contacts);
