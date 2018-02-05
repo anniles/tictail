@@ -14,6 +14,7 @@ const Contact = props => {
     const newId = match.url.split(':', 2);
 
     contact.id = newId[1];
+    console.log(contact.id);
   }
 
   return [
@@ -53,7 +54,10 @@ const Contact = props => {
           <Link
             to="/"
             className="contact__button"
-            onClick={() => save(contact)}>
+            onClick={() => {
+              save(contact);
+              emptyContact();
+            }}>
             Save
           </Link>
 

@@ -654,11 +654,11 @@ export const contactInitial = {
 
 
 export const mapLabel = {
+  color: 'Color:',
+  id: 'Id:',
   first_name: 'First Name:',
   last_name: 'Last Name:',
   location: 'Location:',
   team: 'Team:',
   title: 'Title:',
-  color: 'Color:',
-  id: 'Id:',
 };
