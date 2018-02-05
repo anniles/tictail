@@ -8,6 +8,13 @@
   justify-content: center
   align-items: center
 
+.contact-form__wrapper
+  max-width: 600px
+  width: 100%
+  display: flex
+  flex-direction: column
+  margin-left: 1rem
+
 .contact-form__inputs
   display: flex
   flex-direction: column
@@ -31,13 +38,6 @@
   justify-content: space-between
   align-items: center
 
-.contact-form__wrapper
-  max-width: 600px
-  width: 100%
-  display: flex
-  flex-direction: column
-  margin-left: 1rem
-
 .contact-form__image
   width: 180px;
   margin-right: 1rem
@@ -50,3 +50,9 @@
   display: flex
   justify-content: space-between
   width: 155px
+
+input[type="file"]
+  width: 100%
+  white-space: nowrap
+  max-width: 200px
+  overflow: hidden

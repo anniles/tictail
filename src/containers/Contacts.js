@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -22,23 +21,19 @@ const Contacts = props => {
         </Link>
 
         <div className="contacts__list">
-          {contacts
-            ? Object.keys(contacts).map(contactId =>
+          {contacts && Object.keys(contacts).length !== 0
+            ? Object.keys(contacts).map((contactId, i) =>
               <Contact
                 match={match}
-                key={contacts[contactId].id}
+                key={i}
                 contact={contacts[contactId]} />
             )
-            : null
+            : <h1>We need some people over here...I think!</h1>
           }
         </div>
       </div>
     </div>
   );
 }
-
-Contacts.propTypes = {
-  contacts: PropTypes.object,
-};
 
 export default connect(state => state)(Contacts);

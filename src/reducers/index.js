@@ -41,6 +41,7 @@ export default (state = {}, action) => {
     }
 
     case DELETED: {
+      console.log(contacts);
       return {
         ...state,
         contacts,
@@ -48,7 +49,6 @@ export default (state = {}, action) => {
     }
 
     case UPDATE_IMAGE: {
-      // console.log(image, contact);
       return {
         ...state,
         contact: {

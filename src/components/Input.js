@@ -13,6 +13,7 @@ const Input = props => {
           <input
             className={type === 'color' ? 'contact__color-input' : null}
             maxLength={type === 'color' ? '6' : null}
+            required={type === 'first_name' || type === 'last_name'}
             onChange={event => handleChange(event.target.value, type)}
             value={value || ''}
             readOnly={type === 'id' || false}
