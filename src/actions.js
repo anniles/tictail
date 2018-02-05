@@ -1,5 +1,5 @@
 import getStore from './store';
-import { EDIT, UPDATE, SAVE, EMPTY, DELETE } from './constants/actions';
+import { EDIT, UPDATE, SAVE, EMPTY, DELETE, UPDATE_IMAGE } from './constants/actions';
 
 const store = getStore();
 
@@ -35,6 +35,14 @@ export const emptyContact = () => {
 export const deleteContact = contact => {
   store.dispatch({
     type: DELETE,
+    contact,
+  });
+};
+
+export const updateImage = (image, contact) => {
+  store.dispatch({
+    type: UPDATE_IMAGE,
+    image,
     contact,
   });
 };

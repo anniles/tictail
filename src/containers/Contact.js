@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import Input from '../components/Input';
 import logo from '../images/tictail_logo_square.png';
-import { editInput, save, emptyContact, deleteContact } from '../actions';
+import { editInput, save, emptyContact, deleteContact, updateImage } from '../actions';
 import Header from '../components/Header';
+
+import { UPDATE_IMAGE } from '../constants/actions';
 
 const Contact = props => {
   const { match, contact } = props;
@@ -14,6 +16,15 @@ const Contact = props => {
     const newId = match.url.split(':', 2);
 
     contact.id = newId[1];
+  }
+
+  const handleImageChange = event => {
+    event.preventDefault();
+
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    updateImage(reader.readAsDataURL(file), contact);
   }
 
   return [
@@ -29,6 +40,10 @@ const Contact = props => {
               src={logo}
               alt='tictail contact' />
         }
+        <input
+          onChange={event => handleImageChange(event)}
+          type="file"
+          accept="image/gif, image/jpeg, image/png" />
       </div>
 
       <div className="contact-form__wrapper">
@@ -64,7 +79,10 @@ const Contact = props => {
             <Link
               to="/"
               className="contact__button contact__button--black"
-              onClick={() => deleteContact(contact)}>
+              onClick={() => {
+                deleteContact(contact);
+                emptyContact();
+              }}>
               Delete
             </Link>
           </div>

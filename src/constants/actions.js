@@ -4,6 +4,7 @@ export const EDIT = 'EDIT';
 export const EMPTY = 'EMPTY';
 
 export const UPDATE = 'UPDATE';
+export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 
 export const SAVE = 'SAVE';
 export const SAVED = 'SAVED';
