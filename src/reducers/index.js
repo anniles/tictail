@@ -1,4 +1,4 @@
-import { LOADED, EDIT, UPDATE, SAVED, EMPTY } from '../constants/actions';
+import { LOADED, EDIT, UPDATE, SAVED, EMPTY, DELETED } from '../constants/actions';
 import { contactInitial } from '../constants';
 
 export default (state = {}, action) => {
@@ -33,6 +33,13 @@ export default (state = {}, action) => {
     }
 
     case SAVED: {
+      return {
+        ...state,
+        contacts,
+      };
+    }
+
+    case DELETED: {
       return {
         ...state,
         contacts,

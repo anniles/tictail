@@ -34,17 +34,26 @@
   height: 8px
   margin-bottom: 1rem
 
+.contact__color-input
+  position: relative
+  &:before
+    content: '#'
+    position: absolute
+    top: 0
+    left: 0
+    display: block
+
 .contact__button
   border: 1px solid #eeefef
   background-color: transparent
-  padding: 0.5rem 0
+  padding: 0.5rem 1rem
   margin-top: 1rem
   cursor: pointer
   display: flex
   color: #65676b
   font-weight: 600
   border-radius: 3px
-  width: 100%
+  width: auto
   transition: all .2s
   justify-content: center
   align-items: center
@@ -53,6 +62,16 @@
     max-width: 250px
     margin-left: 0.5rem;
     margin-bottom: 0.5rem;
+  &--black
+    border: none
+    // border: 1px solid $tictail__black
+    background-color: $tictail__black;
+    color: #fff
+    &:hover
+      color: #fff !important
+      border-color: $tictail__hover-btn
+      background-color: $tictail__hover-btn
+
   &:hover
     color: $tictail__black
     border-color: $tictail__black

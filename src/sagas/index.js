@@ -6,7 +6,7 @@ import {
   select,
 } from 'redux-saga/effects';
 
-import { LOADED, SAVE, SAVED } from '../constants/actions';
+import { LOADED, SAVE, SAVED, DELETE, DELETED } from '../constants/actions';
 // import { getContacts } from '../api/getContacts';
 
 function* load () {
@@ -73,8 +73,26 @@ function* save ({ contact }) {
 
 }
 
+function* deleteContact ({ contact }) {
+  const state = yield select();
+  const { contacts } = state;
+  let filterContacts = [];
+
+  Object.keys(contacts).filter(item => {
+    if (contacts[item].id !== contact.id) {
+      filterContacts.push(contacts[item]);
+    }
+  });
+
+  yield put({
+    type: DELETED,
+    contacts: filterContacts,
+  })
+}
+
 export default function* () {
   yield fork(load);
 
   yield takeLatest(SAVE, save);
+  yield takeLatest(DELETE, deleteContact);
 }

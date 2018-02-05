@@ -10,8 +10,9 @@ const Input = props => {
       {type !== 'image'
         ? <label>{Object.keys(mapLabel).map(key => key === type ? mapLabel[key] : null)}
           <input
+            className={type === 'color' ? 'contact__color-input' : null}
             onChange={event => handleChange(event.target.value, type)}
-            value={value ? (type === 'color' ? `#${value}` : value) : ''}
+            value={value || ''}
             readOnly={type === 'id' || false}
             type="text"/>
           {type === 'color'

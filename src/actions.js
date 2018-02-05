@@ -1,5 +1,5 @@
 import getStore from './store';
-import { EDIT, UPDATE, SAVE, EMPTY } from './constants/actions';
+import { EDIT, UPDATE, SAVE, EMPTY, DELETE } from './constants/actions';
 
 const store = getStore();
 
@@ -29,5 +29,12 @@ export const save = contact => {
 export const emptyContact = () => {
   store.dispatch({
     type: EMPTY,
+  });
+};
+
+export const deleteContact = contact => {
+  store.dispatch({
+    type: DELETE,
+    contact,
   });
 };

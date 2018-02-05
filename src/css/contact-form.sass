@@ -16,7 +16,6 @@
     flex-direction: column
     margin-bottom: 0.8rem
     .contact__color
-      padding: 0 1.025rem
       border-bottom-left-radius: 3px
       border-bottom-right-radius: 3px
   input
@@ -25,11 +24,12 @@
     border-radius: 3px
     box-shadow: none
     border: 1px solid $tictail__border
-    width: 100%
     background: transparent
 
 .contact-form__actions
-    display: flex
+  display: flex
+  justify-content: space-between
+  align-items: center
 
 .contact-form__wrapper
   max-width: 600px
@@ -45,3 +45,8 @@
   img
     flex: none
     width: 100%
+
+.contact-form__buttons
+  display: flex
+  justify-content: space-between
+  width: 155px

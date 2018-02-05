@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Input from '../components/Input';
 import logo from '../images/tictail_logo_square.png';
-import { editInput, save, emptyContact } from '../actions';
+import { editInput, save, emptyContact, deleteContact } from '../actions';
 import Header from '../components/Header';
 
 const Contact = props => {
@@ -14,7 +14,6 @@ const Contact = props => {
     const newId = match.url.split(':', 2);
 
     contact.id = newId[1];
-    console.log(contact.id);
   }
 
   return [
@@ -51,22 +50,24 @@ const Contact = props => {
             Back to Contacts List
           </Link>
 
-          <Link
-            to="/"
-            className="contact__button"
-            onClick={() => {
-              save(contact);
-              emptyContact();
-            }}>
-            Save
-          </Link>
+          <div className="contact-form__buttons">
+            <Link
+              to="/"
+              className="contact__button"
+              onClick={() => {
+                save(contact);
+                emptyContact();
+              }}>
+              Save
+            </Link>
 
-          <Link
-            to="/"
-            className="contact__button"
-            onClick={() => {}}>
-            Delete
-          </Link>
+            <Link
+              to="/"
+              className="contact__button contact__button--black"
+              onClick={() => deleteContact(contact)}>
+              Delete
+            </Link>
+          </div>
         </div>
       </div>
     </div>
