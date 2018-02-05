@@ -5,40 +5,43 @@ import {
   takeLatest,
   select,
 } from 'redux-saga/effects';
+import getStore from '../store';
 
 import { LOADED, SAVE, SAVED, DELETE, DELETED } from '../constants/actions';
 // import { getContacts } from '../api/getContacts';
 
 function* load () {
- // const url = 'http://localhost:3000';
- // // const res = yield call(getContacts, url);
+ const url = 'http://localhost:3000';
+ const store = getStore();
 
- //  fetch(`${url}/contacts`, {
- //      method: 'GET',
- //       headers: {
- //        'Accept': 'application/json',
- //      }
- //    })
- //    .then(response => {
- //      if(response.ok) {
- //        return response.json()
- //      } else {
- //        return Promise.reject({})
- //      }
- //    })
- //    .then(function* (json) {
- //      console.log(json)
 
- //      yield put({
- //        type: LOADED,
- //        test: json,
- //      });
- //    })
- //    .catch(error => console.log('Authorization failed : ' + error.message));
+  fetch(`${url}/contacts`, {
+      method: 'GET',
+       headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then(response => {
+      if(response.ok) {
+        return response.json()
+      } else {
+        return Promise.reject({})
+      }
+    })
+    .then(json => {
+      console.log(json)
 
-  yield put({
-    type: LOADED,
-  });
+      store.dispatch({
+        type: LOADED,
+        contacts: json,
+      })
+    })
+    .catch(error => console.log('Authorization failed : ' + error.message));
+
+  // yield put({
+  //   type: LOADED,
+  //   test: json,
+  // });
 }
 
 function* save ({ contact }) {

@@ -15,6 +15,7 @@ export default (state = {}, action) => {
     case LOADED:
       return {
         ...state,
+        contacts,
       };
 
     case EDIT: {
