@@ -7,13 +7,19 @@ import {
 } from 'redux-saga/effects';
 import getStore from '../store';
 
-import { LOADED, SAVE, SAVED, DELETE, DELETED } from '../constants/actions';
-// import { getContacts } from '../api/getContacts';
+import {
+  LOADED,
+  SAVE,
+  SAVED,
+  DELETE,
+  DELETED,
+  FILTER_CONTACTS,
+} from '../constants/actions';
+
+const url = 'http://localhost:3000';
 
 function* load () {
- const url = 'http://localhost:3000';
  const store = getStore();
-
 
   fetch(`${url}/contacts`, {
       method: 'GET',
@@ -29,7 +35,7 @@ function* load () {
       }
     })
     .then(json => {
-      console.log(json)
+      // console.log(json)
 
       store.dispatch({
         type: LOADED,
@@ -37,22 +43,18 @@ function* load () {
       })
     })
     .catch(error => console.log('Authorization failed : ' + error.message));
-
-  // yield put({
-  //   type: LOADED,
-  //   test: json,
-  // });
 }
 
-function* save ({ contact }) {
+function* save ({ contact, dispatch }) {
   const state = yield select();
   const { contacts } = state;
 
   const newContact = {};
+  const newContacts = [];
 
-  Object.keys(contacts).map(keys => {
-    if (keys === contact.id) {
-      return null;
+  Object.keys(contacts).map((keys, i) => {
+    if (contacts[keys].id !== contact.id) {
+      newContacts.splice(i, 0, contacts[keys]);
     } else {
       newContact.id = contact.id;
       newContact.color = contact.color;
@@ -63,27 +65,61 @@ function* save ({ contact }) {
       newContact.team = contact.team;
       newContact.image = contact.image;
 
-      return newContact;
+      newContacts.splice(i, 0, newContact);
     }
   })
 
   // if we have no contacts yet!
   if (Object.keys(newContact).length === 0) {
-    newContact.id = contact.id;
     newContact.color = contact.color;
     newContact.first_name = contact.first_name;
+    newContact.id = contact.id;
+    newContact.image = contact.image;
     newContact.last_name = contact.last_name;
     newContact.location = contact.location;
-    newContact.title = contact.title;
     newContact.team = contact.team;
-    newContact.image = contact.image;
+    newContact.title = contact.title;
+
+    newContacts.splice(0, 0, newContact);
   }
 
-    contacts[contact.id] = newContact;
+  const data = {
+    first_name: newContact.first_name,
+    last_name: newContact.last_name,
+    title: newContact.title,
+    color: newContact.color,
+    image: newContact.image,
+    location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    team: newContact.team,
+  }
+
+  // fetch(`${url}/contacts/${newContact.id}`, {
+  //   method: 'PUT',
+  //   body: JSON.stringify(data),
+  //   headers: {
+  //     'Accept': 'application/json',
+  //   }
+  // })
+  // .then(response => {
+  //   if(response.ok) {
+  //     return response.json()
+  //   } else {
+  //     return Promise.reject({})
+  //   }
+  // })
+  // .then(json => {
+  //   // console.log(json)
+
+  //   // dispatch({
+  //   //   type: LOADED,
+  //   //   contacts: json,
+  //   // })
+  // })
+  // .catch(error => console.log('Authorization failed : ' + error.message));
 
   yield put({
     type: SAVED,
-    contacts,
+    contacts: newContacts,
   })
 
 }
@@ -105,9 +141,35 @@ function* deleteContact ({ contact }) {
   })
 }
 
+function* filterContacts ({ contact_property, filter_value, dispatch }) {
+  fetch(`${url}/contacts?${contact_property}=${filter_value}`, {
+      method: 'GET',
+       headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then(response => {
+      if(response.ok) {
+        return response.json()
+      } else {
+        return Promise.reject({})
+      }
+    })
+    .then(json => {
+      // console.log(json)
+
+      dispatch({
+        type: LOADED,
+        contacts: json,
+      })
+    })
+    .catch(error => console.log('Authorization failed : ' + error.message));
+}
+
 export default function* () {
   yield fork(load);
 
   yield takeLatest(SAVE, save);
   yield takeLatest(DELETE, deleteContact);
+  yield takeLatest(FILTER_CONTACTS, filterContacts);
 }

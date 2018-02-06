@@ -4,7 +4,9 @@
   text-align: center
 
 .header__placeholder
-  height: 78px
+  height: 90px
+  @media (min-width: 850px)
+    height: 78px
 
 .contacts__header
   padding: 1rem 0
@@ -12,6 +14,7 @@
   display: flex
   align-items: center;
   border-bottom: 1px solid $tictail__border
+  box-shadow: 0 0 1px rgba(23,27,31,.2)
   width: 100%
   background: $white
   z-index: 1
@@ -21,17 +24,35 @@
     align-items: center
 
 .contacts__logo
-  height: 25px
+  height: 20px
   margin: 0 1rem 0 0.5rem
   position: absolute
   left: 0
+  top: 0
+  @media (min-width: 850px)
+    height: 25px
+    top: calc(50% - 12.5px)
 
 .contacts__list
   display: flex
   flex-wrap: wrap
+  justify-content: center
 
 .contacts__title
-  font-size: 1.5rem
+  font-size: 1.2rem
   margin: 0
   flex: 1
+  padding-top: 1.5rem
   text-align: center
+  @media (min-width: 850px)
+    font-size: 1.5rem
+    padding-top: 0
+
+.contacts__actions
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  margin: 0.5rem
+  @media (min-width: 850px)
+    flex-direction: row

@@ -65,13 +65,24 @@
   justify-content: center
   align-items: center
   text-decoration: none
+  outline: none
   &--add
-    max-width: 250px
-    margin-left: 0.5rem
-    margin-bottom: 0.5rem
+    max-width: 304px
+    width: 100%
+    order: 1
+    margin-top: 0
+    @media (min-width: 850px)
+      order: 0
+      max-width: 250px
+  &--small
+    width: 30%
+    @media (min-width: 850px)
+      width: auto
+  &--search
+    margin-top: 0
   &--black
     border: none
-    background-color: $tictail__black;
+    background-color: $tictail__black
     color: $white
     &:hover
       color: $white !important

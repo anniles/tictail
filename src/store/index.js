@@ -3,7 +3,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers';
 import saga from '../sagas';
-// import { contacts_res } from '../constants';
 import { contactInitial } from '../constants';
 
 let store;
@@ -15,8 +14,9 @@ export default props => {
 
   const sagaMiddleware = createSagaMiddleware();
   const initialState = {
-    contacts: {}, // contacts_res,
+    contacts: {},
     contact: contactInitial,
+    isLoading: true,
   };
 
   store = createStore(

@@ -1,4 +1,13 @@
-import { LOADED, EDIT, UPDATE, SAVED, EMPTY, DELETED, UPDATE_IMAGE } from '../constants/actions';
+import {
+  LOADED,
+  EDIT,
+  UPDATE,
+  SAVED,
+  EMPTY,
+  DELETED,
+  UPDATE_IMAGE,
+  UPDATE_FILTER_VALUE,
+} from '../constants/actions';
 import { contactInitial } from '../constants';
 
 export default (state = {}, action) => {
@@ -16,6 +25,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         contacts,
+        isLoading: false,
       };
 
     case EDIT: {
@@ -74,6 +84,14 @@ export default (state = {}, action) => {
       return {
         ...state,
         contact: temp_contact,
+      };
+    }
+
+    case UPDATE_FILTER_VALUE: {
+      console.log(value, field);
+      return {
+        ...state,
+        [field]: value,
       };
     }
 

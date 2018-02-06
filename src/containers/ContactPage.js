@@ -9,8 +9,8 @@ import Header from '../components/Header';
 
 import { UPDATE_IMAGE } from '../constants/actions';
 
-const Contact = props => {
-  const { match, contact } = props;
+const ContactPage = props => {
+  const { match, contact, dispatch } = props;
 
   if (!contact || contact.id === '') {
     const newId = match.url.split(':', 2);
@@ -68,9 +68,9 @@ const Contact = props => {
           <div className="contact-form__buttons">
             <Link
               to="/"
-              className="contact__button"
+              className="contact__button contact__button--small"
               onClick={() => {
-                save(contact);
+                save(contact, dispatch);
                 emptyContact();
               }}>
               Save
@@ -78,7 +78,7 @@ const Contact = props => {
 
             <Link
               to="/"
-              className="contact__button contact__button--black"
+              className="contact__button contact__button--black contact__button--small"
               onClick={() => {
                 deleteContact(contact);
                 emptyContact();
@@ -92,4 +92,4 @@ const Contact = props => {
   ];
 };
 
-export default connect(state => state)(Contact);
+export default connect(state => state)(ContactPage);

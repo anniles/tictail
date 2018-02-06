@@ -1,0 +1,46 @@
+@import 'colors'
+
+.contacts__actions-filter
+  margin-bottom: 1rem
+  display: flex
+  flex-direction: column
+  max-width: 340px
+  @media (min-width: 850px)
+    max-width: 100%
+    flex-direction: row
+    margin-bottom: 0
+  &--select
+    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0
+    height: 29px
+    overflow: hidden
+    width: 169px
+    border-radius: 3px
+    border: 1px solid $tictail__border
+    select
+      color: $tictail__black
+      background: transparent
+      font-family: 'PT Serif', serif
+      border: none
+      outline: none
+      font-size: 14px
+      height: 29px
+      padding: 5px
+      width: 180px
+      flex: none
+      cursor: pointer
+      margin-right: 1rem
+  input
+    padding: 0.3rem 1rem
+    border-radius: 3px
+    box-shadow: none
+    border: 1px solid $tictail__border
+    background: transparent
+    margin-left: 0
+    @media (min-width: 850px)
+      margin-left: 1rem
+
+.contacts__inputs-filter
+  display: flex
+  margin-bottom: 1rem
+  @media (min-width: 850px)
+    margin-bottom: 0

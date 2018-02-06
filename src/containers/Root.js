@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Contacts from './Contacts'
-import Contact from './Contact'
+import ContactPage from './ContactPage'
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
       <div>
         <Route exact path="/" component={Contacts} />
-        <Route path="/id:id?" component={Contact} />
+        <Route path="/id:id?" component={ContactPage} />
       </div>
     </Router>
   </Provider>
