@@ -7,6 +7,7 @@ import {
   DELETED,
   UPDATE_IMAGE,
   UPDATE_FILTER_VALUE,
+  LOADED_CONTACT,
 } from '../constants/actions';
 import { contactInitial } from '../constants';
 
@@ -25,6 +26,13 @@ export default (state = {}, action) => {
       return {
         ...state,
         contacts,
+        isLoading: false,
+      };
+
+     case LOADED_CONTACT:
+      return {
+        ...state,
+        contact,
         isLoading: false,
       };
 
@@ -52,7 +60,6 @@ export default (state = {}, action) => {
     }
 
     case DELETED: {
-      console.log(contacts);
       return {
         ...state,
         contacts,
@@ -88,7 +95,6 @@ export default (state = {}, action) => {
     }
 
     case UPDATE_FILTER_VALUE: {
-      console.log(value, field);
       return {
         ...state,
         [field]: value,

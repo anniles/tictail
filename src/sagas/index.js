@@ -1,6 +1,6 @@
 import {
   put,
-  // call,
+  call,
   fork,
   takeLatest,
   select,
@@ -14,11 +14,19 @@ import {
   DELETE,
   DELETED,
   FILTER_CONTACTS,
+  LOAD,
+  LOADED_CONTACT,
 } from '../constants/actions';
 
 const url = 'http://localhost:3000';
 
 function* load () {
+ const pathnameParts = window.location.pathname.split(':');
+
+ if (pathnameParts[1]) {
+  return;
+ }
+
  const store = getStore();
 
   fetch(`${url}/contacts`, {
@@ -45,82 +53,81 @@ function* load () {
     .catch(error => console.log('Authorization failed : ' + error.message));
 }
 
+function* loadContact () {
+ const pathnameParts = window.location.pathname.split(':');
+
+ if (!pathnameParts[1]) {
+  return;
+ }
+
+ const store = getStore();
+
+  fetch(`${url}/contacts/${pathnameParts[1]}`, {
+      method: 'GET',
+       headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then(response => {
+      if(response.ok) {
+        return response.json()
+      } else {
+        return Promise.reject({})
+      }
+    })
+    .then(json => {
+       console.log(json)
+
+      store.dispatch({
+        type: LOADED_CONTACT,
+        contact: json,
+      })
+    })
+    .catch(error => console.log('Authorization failed : ' + error.message));
+}
+
 function* save ({ contact, dispatch }) {
   const state = yield select();
-  const { contacts } = state;
 
-  const newContact = {};
-  const newContacts = [];
+  let rpcURL = `${url}/contacts`;
+  let method = 'POST';
 
-  Object.keys(contacts).map((keys, i) => {
-    if (contacts[keys].id !== contact.id) {
-      newContacts.splice(i, 0, contacts[keys]);
-    } else {
-      newContact.id = contact.id;
-      newContact.color = contact.color;
-      newContact.first_name = contact.first_name;
-      newContact.last_name = contact.last_name;
-      newContact.location = contact.location;
-      newContact.title = contact.title;
-      newContact.team = contact.team;
-      newContact.image = contact.image;
+  const body = new FormData();
+  body.append('first_name', contact.first_name);
+  body.append('last_name', contact.last_name);
+  body.append('title', contact.title);
+  body.append('color', contact.color);
+  body.append('image', contact.image);
+  body.append('location', Intl.DateTimeFormat().resolvedOptions().timeZone);
+  body.append('team', contact.team);
 
-      newContacts.splice(i, 0, newContact);
+  if (contact.id) {
+    rpcURL = `${url}/contacts/${contact.id}`;
+    method = 'PUT';
+  }
+  console.log(contact)
+//return;
+  fetch(rpcURL, {
+    method,
+    body,
+    headers: {
+      'Accept': 'application/json',
     }
   })
-
-  // if we have no contacts yet!
-  if (Object.keys(newContact).length === 0) {
-    newContact.color = contact.color;
-    newContact.first_name = contact.first_name;
-    newContact.id = contact.id;
-    newContact.image = contact.image;
-    newContact.last_name = contact.last_name;
-    newContact.location = contact.location;
-    newContact.team = contact.team;
-    newContact.title = contact.title;
-
-    newContacts.splice(0, 0, newContact);
-  }
-
-  const data = {
-    first_name: newContact.first_name,
-    last_name: newContact.last_name,
-    title: newContact.title,
-    color: newContact.color,
-    image: newContact.image,
-    location: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    team: newContact.team,
-  }
-
-  // fetch(`${url}/contacts/${newContact.id}`, {
-  //   method: 'PUT',
-  //   body: JSON.stringify(data),
-  //   headers: {
-  //     'Accept': 'application/json',
-  //   }
-  // })
-  // .then(response => {
-  //   if(response.ok) {
-  //     return response.json()
-  //   } else {
-  //     return Promise.reject({})
-  //   }
-  // })
-  // .then(json => {
-  //   // console.log(json)
-
-  //   // dispatch({
-  //   //   type: LOADED,
-  //   //   contacts: json,
-  //   // })
-  // })
-  // .catch(error => console.log('Authorization failed : ' + error.message));
-
-  yield put({
-    type: SAVED,
-    contacts: newContacts,
+  .then(response => {
+    if(response.ok) {
+      return response.json()
+    } else {
+      return Promise.reject({})
+    }
   })
+  .then(json => {
+    console.log(json)
+    dispatch({
+      type: LOAD,
+    })
+  })
+  .catch(error => console.log('Authorization failed : ' + error.message));
 
 }
 
@@ -167,8 +174,10 @@ function* filterContacts ({ contact_property, filter_value, dispatch }) {
 }
 
 export default function* () {
-  yield fork(load);
+  yield call(load);
+  yield call(loadContact);
 
+  yield takeLatest(LOAD, load);
   yield takeLatest(SAVE, save);
   yield takeLatest(DELETE, deleteContact);
   yield takeLatest(FILTER_CONTACTS, filterContacts);

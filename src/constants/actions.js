@@ -1,4 +1,6 @@
+export const LOAD = 'LOAD';
 export const LOADED = 'LOADED';
+export const LOADED_CONTACT = 'LOADED_CONTACT';
 
 export const EDIT = 'EDIT';
 export const EMPTY = 'EMPTY';

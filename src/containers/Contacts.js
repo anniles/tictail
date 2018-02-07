@@ -17,7 +17,12 @@ const mapProperties = {
 
 const Contacts = props => {
   const { contacts, match, isLoading, contact_property, filter_value, dispatch } = props;
-  const newContactId = Math.random().toString(36).substr(2, 10);
+
+  const handleKeyPress = e => {
+    if (e.target.keyCode === 13) {
+      filterContacts(contact_property, filter_value, dispatch);
+    }
+  }
 
   return (
     <div className="contacts">
@@ -29,7 +34,7 @@ const Contacts = props => {
 
           <div className="contacts__actions">
             <Link
-              to={`${match.url}id:${newContactId}`}
+              to={`${match.url}new`}
               className="contact__button contact__button--add">
               Add Contact
             </Link>
@@ -50,8 +55,8 @@ const Contacts = props => {
 
                 <input
                   onChange={e => updateFilter(e.target.value, 'filter_value')}
-                  placeholder={`Search for ${Object.keys(mapProperties).map(
-                    key => key === contact_property ? mapProperties[key] : null)}`}
+                  //onKeyPress={e => handleKeyPress(e)}
+                  placeholder={`Search for ${mapProperties[contact_property] || '...'}`}
                   type="text"/>
               </div>
 

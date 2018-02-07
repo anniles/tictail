@@ -11,6 +11,7 @@ const Root = ({ store }) => (
       <div>
         <Route exact path="/" component={Contacts} />
         <Route path="/id:id?" component={ContactPage} />
+        <Route exact path="/new" component={ContactPage} />
       </div>
     </Router>
   </Provider>

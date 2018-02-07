@@ -7,10 +7,11 @@ import logo from '../images/tictail_logo_square.png';
 import { editInput, save, emptyContact, deleteContact, updateImage } from '../actions';
 import Header from '../components/Header';
 
-import { UPDATE_IMAGE } from '../constants/actions';
+import { UPDATE_IMAGE, LOAD } from '../constants/actions';
 
 const ContactPage = props => {
-  const { match, contact, dispatch } = props;
+  const { histrory, match, contact, dispatch } = props;
+  console.log(props);
 
   if (!contact || contact.id === '') {
     const newId = match.url.split(':', 2);
@@ -21,10 +22,9 @@ const ContactPage = props => {
   const handleImageChange = event => {
     event.preventDefault();
 
-    let reader = new FileReader();
     let file = event.target.files[0];
 
-    updateImage(reader.readAsDataURL(file), contact);
+    updateImage(URL.createObjectURL(file), contact);
   }
 
   return [
@@ -53,17 +53,25 @@ const ContactPage = props => {
               key={data}
               handleChange={(value, field) => editInput(value, field, contact)}
               type={data}
+              id={contact.id}
               value={contact[data]} />
           )}
         </div>
 
         <div className="contact-form__actions">
-          <Link
-            to="/"
-            onClick={() => emptyContact()}
+          <span
+            // to="/"
+            onClick={() => {
+              dispatch({
+                type: LOAD,
+              });
+
+              emptyContact();
+              window.location.href = '/';
+            }}
             className="contact__button">
             Back to Contacts List
-          </Link>
+          </span>
 
           <div className="contact-form__buttons">
             <Link
