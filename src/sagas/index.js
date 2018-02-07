@@ -1,7 +1,6 @@
 import {
   put,
   call,
-  fork,
   takeLatest,
   select,
 } from 'redux-saga/effects';
@@ -10,7 +9,6 @@ import getStore from '../store';
 import {
   LOADED,
   SAVE,
-  SAVED,
   DELETE,
   DELETED,
   FILTER_CONTACTS,
@@ -43,7 +41,6 @@ function* load () {
       }
     })
     .then(json => {
-      // console.log(json)
 
       store.dispatch({
         type: LOADED,
@@ -87,8 +84,6 @@ function* loadContact () {
 }
 
 function* save ({ contact, dispatch }) {
-  const state = yield select();
-
   let rpcURL = `${url}/contacts`;
   let method = 'POST';
 
@@ -106,7 +101,7 @@ function* save ({ contact, dispatch }) {
     method = 'PUT';
   }
   console.log(contact)
-//return;
+
   fetch(rpcURL, {
     method,
     body,
@@ -163,7 +158,6 @@ function* filterContacts ({ contact_property, filter_value, dispatch }) {
       }
     })
     .then(json => {
-      // console.log(json)
 
       dispatch({
         type: LOADED,

@@ -649,7 +649,6 @@ export const contactInitial = {
   location: '',      // Location as timezone https://en.wikipedia.org/wiki/Tz_database
   team: '',          // Function level team
   title: '',         // Role title
-  //image: '../images/tictail_logo_square.png',         // URL to avatar
 };
 
 

@@ -7,11 +7,10 @@ import logo from '../images/tictail_logo_square.png';
 import { editInput, save, emptyContact, deleteContact, updateImage } from '../actions';
 import Header from '../components/Header';
 
-import { UPDATE_IMAGE, LOAD } from '../constants/actions';
+import { LOAD } from '../constants/actions';
 
 const ContactPage = props => {
-  const { histrory, match, contact, dispatch } = props;
-  console.log(props);
+  const { match, contact, dispatch } = props;
 
   if (!contact || contact.id === '') {
     const newId = match.url.split(':', 2);
@@ -60,7 +59,6 @@ const ContactPage = props => {
 
         <div className="contact-form__actions">
           <span
-            // to="/"
             onClick={() => {
               dispatch({
                 type: LOAD,

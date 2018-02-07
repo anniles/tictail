@@ -18,12 +18,6 @@ const mapProperties = {
 const Contacts = props => {
   const { contacts, match, isLoading, contact_property, filter_value, dispatch } = props;
 
-  const handleKeyPress = e => {
-    if (e.target.keyCode === 13) {
-      filterContacts(contact_property, filter_value, dispatch);
-    }
-  }
-
   return (
     <div className="contacts">
       <Header title="Welcome to Tictail Admin" />
@@ -55,7 +49,6 @@ const Contacts = props => {
 
                 <input
                   onChange={e => updateFilter(e.target.value, 'filter_value')}
-                  //onKeyPress={e => handleKeyPress(e)}
                   placeholder={`Search for ${mapProperties[contact_property] || '...'}`}
                   type="text"/>
               </div>
